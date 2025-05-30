@@ -1,0 +1,78 @@
+.address-display {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.address-display h2 {
+  color: #333;
+  margin: 0 0 1.5rem 0;
+  font-size: 1.75rem;
+}
+
+.address-display h3 {
+  color: #555;
+  margin: 1.5rem 0 0.75rem 0;
+  font-size: 1.25rem;
+}
+
+.address-info {
+  margin-bottom: 1.5rem;
+}
+
+.address-info p {
+  margin: 0.5rem 0;
+  color: #333;
+}
+
+.security-details,
+.parking-info,
+.additional-info {
+  background: #f8f8f8;
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+}
+
+.security-details p,
+.parking-info p,
+.additional-info p {
+  margin: 0.5rem 0;
+  color: #555;
+}
+
+.edit-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: block;
+  margin: 1rem auto;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .address-display {
+    margin: 1rem;
+    padding: 1rem;
+  }
+
+  .address-display h2 {
+    font-size: 1.5rem;
+  }
+
+  .edit-button {
+    width: 100%;
+  }
+}
