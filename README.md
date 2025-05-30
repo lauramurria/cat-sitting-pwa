@@ -2,6 +2,28 @@
 
 A modern Progressive Web App for managing cat sitting services, including address management and booking functionality.
 
+[![CI](https://github.com/lauramurria/cat-sitting-pwa/actions/workflows/ci.yml/badge.svg)](https://github.com/lauramurria/cat-sitting-pwa/actions/workflows/ci.yml)
+[![Deploy](https://github.com/lauramurria/cat-sitting-pwa/actions/workflows/deploy.yml/badge.svg)](https://github.com/lauramurria/cat-sitting-pwa/actions/workflows/deploy.yml)
+
+## Features
+
+- Modern React-based UI
+- Progressive Web App (PWA) features
+- Address management with security details
+- Offline support
+- Deployed on GitHub Pages
+
+## Development
+
+This project uses GitHub Actions for:
+- Automated testing
+- Building the production version
+- Deployment to GitHub Pages
+
+## Available Scripts
+
+In the project directory, you can run:
+
 ## Available Scripts
 
 In the project directory, you can run:
