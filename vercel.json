@@ -1,0 +1,7 @@
+{
+  "env": {
+    "SUPABASE_PROJECT_NAME": "cat-sitting-pwa",
+    "SUPABASE_URL": "https://yuygdwmrdoqieijqegfg.supabase.co",
+    "SUPABASE_ANON_KEY": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inl1eWdkd21yZG9xaWVpanFlZ2ZnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDg2MTMwNjUsImV4cCI6MjA2NDE4OTA2NX0.d34grbGSXys5eu6qEMXf1cHV8xVJNyVsLdtuYCs_Tus"
+  }
+}

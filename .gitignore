@@ -9,6 +9,9 @@
 /coverage
 
 # production
+.env
+.env.*
+!.env.example
 /build
 
 # misc
