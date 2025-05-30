@@ -4,9 +4,17 @@ on:
   push:
     branches: [ main ]
 
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
 
     steps:
       - uses: actions/checkout@v3
@@ -23,9 +31,10 @@ jobs:
         run: npm run build
 
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@v4
+        uses: actions/deploy-pages@v1
         with:
-          branch: gh-pages
-          folder: build
-          clean: true
           token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Get deployment URL
+        id: deployment
+        run: echo "page_url=https://lauramurria.github.io/cat-sitting-pwa/" >> $GITHUB_OUTPUT
