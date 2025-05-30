@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# Cat Sitting Progressive Web App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern Progressive Web App for managing cat sitting services, including address management and booking functionality.
 
 ## Available Scripts
 
