@@ -1,3 +1,5 @@
+/* eslint-disable no-restricted-globals */
+
 const CACHE_NAME = 'cat-sitting-pwa-v1';
 const urlsToCache = [
   '/',
@@ -10,31 +12,41 @@ const urlsToCache = [
   '/favicon.ico'
 ];
 
-self.addEventListener('install', event => {
+// Install event
+self.addEventListener('install', (event) => {
   event.waitUntil(
-    caches.open(CACHE_NAME)
-      .then(cache => cache.addAll(urlsToCache))
+    caches.open(CACHE_NAME).then((cache) => 
+      cache.addAll(urlsToCache)
+    )
   );
 });
 
-self.addEventListener('fetch', event => {
+// Fetch event
+self.addEventListener('fetch', (event) => {
   event.respondWith(
-    caches.match(event.request)
-      .then(response => response || fetch(event.request))
+    caches.match(event.request).then((response) => 
+      response || fetch(event.request)
+    )
   );
 });
 
-self.addEventListener('activate', event => {
+// Activate event
+self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then(cacheNames => {
-      return Promise.all(
-        cacheNames.filter(cacheName => {
-          return cacheName.startsWith('cat-sitting-pwa-') &&
-                 cacheName !== CACHE_NAME;
-        }).map(cacheName => {
-          return caches.delete(cacheName);
-        })
-      );
-    })
+    caches.keys().then((cacheNames) => 
+      Promise.all(
+        cacheNames
+          .filter((cacheName) => 
+            cacheName.startsWith('cat-sitting-pwa-') && cacheName !== CACHE_NAME
+          )
+          .map((cacheName) => caches.delete(cacheName))
+      )
+    )
   );
 });
+
+// Skip waiting so the service worker takes control immediately
+self.skipWaiting();
+
+// Clients claim so the service worker immediately controls the page
+self.clients.claim();
