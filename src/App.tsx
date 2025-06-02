@@ -4,9 +4,9 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import CatCard from './components/CatCard';
 import AddressDisplay from './components/AddressDisplay';
 import AddressForm from './components/AddressForm';
-import RegisterLogin from './components/auth/RegisterLogin.tsx';
+import RegisterLogin from './components/auth/RegisterLogin';
 import { AuthProvider } from './components/auth/AuthContext';
-import ProtectedRoute from './components/auth/ProtectedRoute.tsx';
+import ProtectedRoute from './components/auth/ProtectedRoute';
 
 const cats = [
   {
@@ -34,7 +34,20 @@ const cats = [
 
 function App() {
   const [showForm, setShowForm] = useState(false);
-  const [address, setAddress] = useState({
+
+  interface AddressFormData {
+    street: string;
+    city: string;
+    postcode: string;
+    state: string;
+    country: string;
+    alarmCode: string;
+    keyLocation: string;
+    parkingInfo: string;
+    additionalInstructions: string;
+  }
+
+  const [address, setAddress] = useState<AddressFormData>({
     street: '123 Cat Street',
     city: 'Meow Town',
     postcode: 'ME1 234',
@@ -46,7 +59,7 @@ function App() {
     additionalInstructions: ''
   });
 
-  const handleFormSubmit = (formData) => {
+  const handleFormSubmit = (formData: AddressFormData) => {
     setAddress(formData);
     setShowForm(false);
   };

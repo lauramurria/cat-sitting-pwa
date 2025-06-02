@@ -5,6 +5,25 @@ import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute, createHandlerBoundToURL } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
 import { StaleWhileRevalidate } from 'workbox-strategies';
+import { URL } from 'url';
+
+// Type definitions for service worker scope
+interface ServiceWorkerScope extends ServiceWorkerGlobalScope {
+  __WB_MANIFEST: any[];
+  skipWaiting(): Promise<void>;
+  registration: ServiceWorkerRegistration;
+}
+
+// Type definitions for workbox
+declare const self: ServiceWorkerScope;
+declare const process: {
+  env: {
+    PUBLIC_URL: string;
+  }
+};
+
+// Initialize file extension regex
+const fileExtensionRegexp = /[^/?]+\.[^/]+$/;
 
 clientsClaim();
 
@@ -16,7 +35,6 @@ precacheAndRoute(self.__WB_MANIFEST);
 // Set up App Shell-style routing, so that all navigation requests
 // are fulfilled with your index.html shell. Learn more at
 // https://developers.google.com/web/fundamentals/architecture/app-shell
-const fileExtensionRegexp = new RegExp('/[^/?]+.[^/]+$');
 registerRoute(
   // Return false to exempt requests from being fulfilled by index.html.
   ({ request, url }) => {
@@ -46,8 +64,8 @@ registerRoute(
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) =>
-    url.origin === self.location.origin && url.pathname.endsWith('.png'),
+  ({ url }: { url: URL }) =>
+    url.origin === self.registration.scope && url.pathname.endsWith('.png'),
   // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: 'images',
@@ -61,7 +79,7 @@ registerRoute(
 
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
-addEventListener('message', (event) => {
+addEventListener('message', (event: MessageEvent) => {
   if (event.data && event.data.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }

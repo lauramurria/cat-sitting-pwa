@@ -6,7 +6,13 @@ const isLocalhost = Boolean(
   window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
 );
 
-export function registerValidSW(swUrl, config) {
+interface ServiceWorkerConfig {
+  swUrl: string;
+  onSuccess?: () => void;
+  onUpdate?: (registration: ServiceWorkerRegistration) => void;
+}
+
+export function registerValidSW(swUrl: string, config: ServiceWorkerConfig) {
   navigator.serviceWorker
     .register(swUrl)
     .then(registration => {
@@ -28,7 +34,7 @@ export function registerValidSW(swUrl, config) {
 
               // Execute callback
               if (config && config.onUpdate) {
-                config.onUpdate(registration);
+                config.onUpdate?.(registration);
               }
             } else {
               // At this point, everything has been precached.
@@ -38,7 +44,7 @@ export function registerValidSW(swUrl, config) {
 
               // Execute callback
               if (config && config.onSuccess) {
-                config.onSuccess(registration);
+                config.onSuccess();
               }
             }
           }
@@ -50,7 +56,7 @@ export function registerValidSW(swUrl, config) {
     });
 }
 
-function checkValidServiceWorker(swUrl, config) {
+function checkValidServiceWorker(swUrl: string, config: ServiceWorkerConfig) {
   // Check if the service worker can be found. If it can't reload the page.
   fetch(swUrl, {
     headers: { 'Service-Worker': 'script' }
@@ -88,10 +94,10 @@ export function unregister() {
   }
 }
 
-export function register(config) {
+export function register(config: ServiceWorkerConfig) {
   if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
     // The URL constructor is available in all browsers that support SW.
-    const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
+    const publicUrl = new URL(process.env.PUBLIC_URL as string, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
       // Our service worker won't work if PUBLIC_URL is on a different origin
       // from what our page is served on. This might happen if a CDN is used to
@@ -104,13 +110,13 @@ export function register(config) {
 
       if (isLocalhost) {
         // This is running on localhost. Let's check if a service worker still exists or not.
-        checkValidServiceWorker(swUrl, config);
+        checkValidServiceWorker(swUrl, config as ServiceWorkerConfig);
 
         // Add some additional logging to localhost, pointing developers to the
         // service worker URL. This helps solve a common issue where developers
         // accidentally create an infinite redirect condition.
         navigator.serviceWorker.ready.then(registration => {
-          registration.update();
+          registration.update?.();
         });
       } else {
         // Is not localhost. Just register service worker
