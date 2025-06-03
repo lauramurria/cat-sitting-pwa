@@ -60,8 +60,8 @@ export default function RegisterLogin({ mode, onModeChange }: AuthFormProps) {
         if (signInError) throw signInError;
       }
 
-      // Redirect to dashboard
-      navigate('/dashboard');
+      // Redirect to root route
+      navigate('/');
     } catch (error: any) {
       setError(error.message || 'Authentication failed');
     } finally {
